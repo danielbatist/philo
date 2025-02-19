@@ -6,27 +6,62 @@
 /*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 15:24:56 by dbatista          #+#    #+#             */
-/*   Updated: 2025/02/18 21:04:41 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/02/19 20:11:47 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	mails = 0;
+pthread_mutex_t	mutex;
+
 void	*routine()
 {
-    ft_printf("Minha primeira thread está sendo criada.\n");
-	sleep(3);
-	ft_printf("Deu tudo certo.");
+	int	i;
+
+	i = 0;
+	while (i < 10000)
+	{
+		pthread_mutex_lock(&mutex);
+		mails++;
+		pthread_mutex_unlock(&mutex);
+		i++;
+	}
 	return (NULL);
 }
 
-int		main(void)
+int		main(int argc, char **argv)
 {
-    pthread_t	t1;
-	pthread_t	t2;
-    pthread_create(&t1, NULL, &routine, NULL);
-	pthread_create(&t2, NULL, &routine, NULL);
-	pthread_join(t1, NULL);
-	pthread_join(t2, NULL);
-    return (0);
+	int	i;
+	int	arg = ft_atoi(argv[1]);
+	pthread_t	th[arg];
+
+	if (argc > 1)
+	{
+		i = 0;
+		pthread_mutex_init(&mutex, NULL);
+		while (i < arg)
+		{
+			if (pthread_create(th + i, NULL, &routine, NULL) != 0)
+			{
+				perror("thread error!");
+				return (1);
+			}
+			ft_printf("Thread %d has started\n", i);
+			sleep(1);
+			i++;
+		}
+		i = 0;
+		while (i < arg)
+		{
+			if (pthread_join(th[i] , NULL) != 0)
+				return (1);
+			ft_printf("Thread %d finish\n", i);
+			sleep(1);
+			i++;
+		}
+		pthread_mutex_destroy(&mutex);
+		ft_printf("Number of mails: %d\n", mails);
+	}
+	return (0);
 }
