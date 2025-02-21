@@ -6,7 +6,7 @@
 /*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:43:15 by dbatista          #+#    #+#             */
-/*   Updated: 2025/02/20 20:46:42 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/02/21 19:55:30 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_philo	*creat_philo(int id)
 	return (philo);
 }
 
-t_philo	*init_philo(int num_philo)
+t_philo	*init_philo(int num_philo, pthread_mutex_t *forks, t_data *data)
 {
 	int	i;
 	t_philo	*head;
@@ -49,6 +49,11 @@ t_philo	*init_philo(int num_philo)
 			}
 			return (NULL);
 		}
+
+		philo->left_fork = &forks[i];
+		philo->right_fork = &forks[(i + 1) % num_philo];
+		philo->meals_eat = 0;
+		philo->data = data;
 		if (!head)
 			head = philo;
 		else
