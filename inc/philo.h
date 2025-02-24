@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 20:34:47 by dbatista          #+#    #+#             */
-/*   Updated: 2025/02/21 18:53:38 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/02/23 21:53:02 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,21 @@
 
 typedef struct s_data
 {
-	int	num_philo;
-	int	preset_meals;
-	int	died;
+	int				num_philo;
+	int				preset_meals;
+	int				died;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	fork_mutex;
+	int				*forks_free;	
+	
 }				t_data;
 
 
 typedef struct s_philo
 {
 	int				id;
+	int				left_fork_id;
+	int				right_fork_id;
 	int				meals_eat;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;

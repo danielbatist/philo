@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:43:03 by dbatista          #+#    #+#             */
-/*   Updated: 2025/02/21 19:32:00 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/02/23 22:23:32 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,13 @@ static void	*routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	while (1)
-	{	//verifica se alguem morreu ou comeu o suficiente.
-		if (philo->data->died || ( philo->meals_eat > 2))
-			break;
-
+	while ( philo->meals_eat < philo->data->preset_meals)
+	{
 		//pensar
 		pthread_mutex_lock(&philo->data->print_mutex);
 		ft_printf("Philosopher %d is thinking\n", philo->id);
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		sleep(2);
+		usleep(100000);
 		//pegar garfo
 		if (philo->id % 2 == 0)
 		{
@@ -34,12 +31,12 @@ static void	*routine(void *arg)
 			pthread_mutex_lock(&philo->data->print_mutex);
 			ft_printf("Philosopher %d has taken left fork\n", philo->id);
 			pthread_mutex_unlock(&philo->data->print_mutex);
-			sleep(2);
+			usleep(100000);
 			pthread_mutex_lock(philo->right_fork);
 			pthread_mutex_lock(&philo->data->print_mutex);
 			ft_printf("Philosopher %d has taken right fork\n", philo->id);
 			pthread_mutex_unlock(&philo->data->print_mutex);
-			sleep(2);
+			usleep(100000);
 		}
 		else
 		{
@@ -47,18 +44,18 @@ static void	*routine(void *arg)
 			pthread_mutex_lock(&philo->data->print_mutex);
 			ft_printf("Philosopher %d has taken right fork\n", philo->id);
 			pthread_mutex_unlock(&philo->data->print_mutex);
-			sleep(2);
+			usleep(100000);
 			pthread_mutex_lock(philo->left_fork);
 			pthread_mutex_lock(&philo->data->print_mutex);
 			ft_printf("Philosopher %d has taken left fork\n", philo->id);
 			pthread_mutex_unlock(&philo->data->print_mutex);
-			sleep(2);
+			usleep(100000);
 		}
 		//comendo
 		pthread_mutex_lock(&philo->data->print_mutex);
 		ft_printf("Philosopher %d is eating\n", philo->id);
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		sleep(2);
+		usleep(100000);
 		philo->meals_eat++;
 		//libera os garfos
 		pthread_mutex_unlock(philo->left_fork);
@@ -66,12 +63,12 @@ static void	*routine(void *arg)
 		pthread_mutex_lock(&philo->data->print_mutex);
 		ft_printf("Philosopher %d has released forks\n", philo->id);
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		sleep(2);
+		usleep(100000);
 		//dormindo
 		pthread_mutex_lock(&philo->data->print_mutex);
 		ft_printf("Philosopher %d is sleeping\n", philo->id);
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		sleep(2);
+		usleep(100000);
 	}
 	return (NULL);
 }
@@ -123,7 +120,6 @@ int	main(int argc, char **argv)
 		pthread_mutex_lock(&philo->data->print_mutex);
 		ft_printf("Thread for philosopher %d createad\n", current->id);
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		sleep(2);
 		current = current->next;
 	}
 	current = NULL;
@@ -136,7 +132,6 @@ int	main(int argc, char **argv)
 		pthread_mutex_lock(&philo->data->print_mutex);
 		ft_printf("Thread for philosopher %d finished\n", current->id);
 		pthread_mutex_unlock(&philo->data->print_mutex);
-		sleep(2);
 		current = current->next;
 	}
 	i = 0;
