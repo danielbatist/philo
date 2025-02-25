@@ -6,13 +6,20 @@
 /*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:43:15 by dbatista          #+#    #+#             */
-/*   Updated: 2025/02/21 19:55:30 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/02/24 21:38:12 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
+void	print_message(t_philo *philo, char *str)
+{
+	if (philo->data->died == 1)
+		return ;
+	pthread_mutex_lock(&philo->data->print_mutex);
+	ft_printf("Philosopher %d %s\n", philo->id, str);
+	pthread_mutex_unlock(&philo->data->print_mutex);
+}
 
 t_philo	*creat_philo(int id)
 {

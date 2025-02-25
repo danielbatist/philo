@@ -6,7 +6,7 @@ PRINT = printf
 
 NAME = philo
 
-SRC = philo.c philo_utils.c\
+SRC = philo.c philo_utils.c philo_event.c philo_time.c\
 
 OBJ = $(SRC:.c=.o)
 
