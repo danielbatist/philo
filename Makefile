@@ -6,7 +6,8 @@ PRINT = printf
 
 NAME = philo
 
-SRC = philo.c philo_utils.c philo_event.c philo_time.c\
+SRC = handle_thread_mutex.c monitoring.c philo_data.c philo_input.c\
+	philo_mutex.c philo_simulation.c philo_utils.c philo.c\
 
 OBJ = $(SRC:.c=.o)
 
