@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:15:38 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 12:07:16 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/10 20:20:40 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	thinking(t_philo *philo, int pre_sim)
 static void	synch_dinner(t_philo *philo)
 {
 	if (philo->philo_id % 2 == 0)
-		ft_usleep(30000, philo->data);
+		ft_usleep(30, philo->data);
 	else
 		thinking(philo, TRUE);
 }
@@ -87,7 +87,6 @@ void	simulation_start(t_data *data)
 		while (i < data->num_philo)
 		{
 			handle_thread(&data->philo_arr[i].philo_thread, philo_dinner, &data->philo_arr[i], CREATE);
-			ft_printf("Criando thread para filósofo %d: endereço %p\n", i, (void *)&data->philo_arr[i]);
 			i++;
 		}
 	}

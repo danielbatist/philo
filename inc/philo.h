@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 20:34:47 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 10:49:45 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/10 20:37:12 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@
 # define RESET		"\033[0m"
 # define RED		"\033[0;31m"
 # define GREEN		"\033[0;32m"
-# define YELLOW		"\033[0;33m"
-# define MAGENTE	"\033[0;35m"
-# define CYAN		"\033[0;36m"
 # define WHITE		"\033[0;37m"
 
 typedef struct s_data	t_data;

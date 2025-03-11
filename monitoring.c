@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:08:40 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 10:35:23 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/10 21:06:22 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	*death_check(void *ph_data)
 		{
 			if (philo_die(data->philo_arr + i) == TRUE)
 			{
-				set_value(&data->access_mutex, &data->end_time, TRUE);
 				print_status(DIED, data->philo_arr + i);
+				set_value(&data->access_mutex, &data->end_time, TRUE);
 			}
 			i++;
 		}

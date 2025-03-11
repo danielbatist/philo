@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:54 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/07 17:30:58 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:36:56 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void	convert_input(t_data *data, char **argv)
 		ft_printf("Input error: total number of philos must be 1 - 200\n");
 		data->error_flag = 1;
 	}
-	data->time_to_die = check_num_valid(data, argv[2]) * 1000;
-	data->time_to_eat = check_num_valid(data, argv[3]) * 1000;
-	data->time_to_sleep = check_num_valid(data, argv[4]) * 1000;
-	if (data->time_to_die < 60000 || data->time_to_eat < 60000 || data->time_to_sleep < 60000)
+	data->time_to_die = check_num_valid(data, argv[2]);
+	data->time_to_eat = check_num_valid(data, argv[3]);
+	data->time_to_sleep = check_num_valid(data, argv[4]);
+	if (data->time_to_die < 60 || data->time_to_eat < 60 || data->time_to_sleep < 60)
 	{
 		ft_printf("Input error: time must be at least 60ms\n");
 		data->error_flag = 1;
