@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:31:50 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 10:37:00 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:17:40 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	philo_init(t_data *data)
 		philo = data->philo_arr + i;
 		philo->philo_id = i + 1;
 		philo->max_meals = 0;
-		philo->meal_count = 0;
+		philo->meals_counter = 0;
 		handle_mutex(&philo->philo_mtx, INIT);
 		philo->data = data;
 		take_forks(philo, data->forks_arr, i);
@@ -71,15 +71,12 @@ void	data_init(t_data *data)
 	data->end_time = 0;
 	data->threads_ready = 0;
 	data->active_philo = 0;
-	if (!(data->philo_arr = malloc(data->num_philo * sizeof(t_philo))))
+	if (!(data->philo_arr = ft_malloc(data->num_philo * sizeof(t_philo), data)))
+		return ;
+	if (!(data->forks_arr = ft_malloc(data->num_philo * sizeof(t_fork), data)))
 	{
-		ft_printf("Malloc error\n");
-		data->error_flag = 1;
-	}
-	if (!(data->forks_arr = malloc(data->num_philo * sizeof(t_fork))))
-	{
-		ft_printf("Malloc error\n");
-		data->error_flag = 1;
+		free(data->philo_arr);
+		return ;
 	}
 	handle_mutex(&data->access_mutex, INIT);
 	handle_mutex(&data->print_mutex, INIT);

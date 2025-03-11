@@ -6,7 +6,7 @@
 /*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:08:40 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 21:06:22 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:35:26 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ static int	philo_die(t_philo *philo)
 	return (FALSE);
 }
 
-static int	all_ph_active(t_mtx *mutex, long *thread, long ph_total)
+static int	all_ph_active(t_mtx *mutex, long *philo_active, long ph_total)
 {
-	int	value;
+	int	flag;
 
-	value = FALSE;
+	flag = FALSE;
 	handle_mutex(mutex, LOCK);
-	if (*thread == ph_total)
-		value = TRUE;
+	if (*philo_active == ph_total)
+		flag = TRUE;
 	handle_mutex(mutex, UNLOCK);
-	return (value);
+	return (flag);
 }
 
 void	*death_check(void *ph_data)
@@ -58,12 +58,15 @@ void	*death_check(void *ph_data)
 	t_data	*data;
 
 	data = (t_data *)ph_data;
-	while (!all_ph_active(&data->access_mutex, &data->active_philo, data->num_philo))
-		;
+	while (1)
+	{
+		if (all_ph_active(&data->access_mutex, &data->active_philo, data->num_philo))
+			break ;
+	}
 	while (get_bool(&data->access_mutex, &data->end_time) == FALSE)
 	{
 		i = 0;
-		while (i < data->num_philo && (get_bool(&data->access_mutex, &data->end_time) == FALSE))
+		while (i < data->num_philo)
 		{
 			if (philo_die(data->philo_arr + i) == TRUE)
 			{

@@ -6,7 +6,7 @@
 /*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 20:34:47 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 20:37:12 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:29:38 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_philo
 {
 	int			philo_id;
 	int			max_meals; //bool
-	long		meal_count;
+	long		meals_counter;
 	long		last_meal;
 	pthread_t	philo_thread;
 	t_fork		*left_fork;
@@ -58,13 +58,13 @@ typedef struct s_data
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	long			meals_total;
+	long			total_meals;
 	long			start_time;
 	long			active_philo;
 	int				end_time; // bool 
 	int				threads_ready; // bool
 	int				error_flag; // bool
-	pthread_t		check_died;
+	pthread_t		thread_death;
 	t_fork			*forks_arr;
 	t_philo			*philo_arr;
 	t_mtx			access_mutex;
@@ -108,5 +108,6 @@ void	simulation_start(t_data *data);
 void	print_status(t_status status, t_philo *philo);
 long	gettime(void);
 void	ft_usleep(long sleep_time, t_data *data);
+void	*ft_malloc(size_t size, t_data *data);
 void	free_things(t_data *data);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:54 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 17:36:56 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/11 19:41:38 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	convert_input(t_data *data, char **argv)
 		data->error_flag = 1;
 	}
 	if (argv[5])
-		data->meals_total = check_num_valid(data, argv[5]);
+		data->total_meals = check_num_valid(data, argv[5]);
 	else
-		data->meals_total = -1;
+		data->total_meals = -1;
 }

@@ -6,7 +6,7 @@
 /*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:43:15 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/10 20:06:47 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:20:35 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,19 @@ void	ft_usleep(long sleep_time, t_data *data)
 			while (gettime() - start_time < sleep_time)
 				;
 	}
+}
+
+void	*ft_malloc(size_t size, t_data *data)
+{
+	void	*res;
+
+	res = malloc(size);
+	if (!res)
+	{
+		printf("Malloc error!\n");
+		data->error_flag = 1;
+	}
+	return (res);
 }
 
 void	free_things(t_data *data)
