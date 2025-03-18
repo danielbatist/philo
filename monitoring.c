@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:08:40 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/11 19:35:26 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/17 23:02:32 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	waiting_thread(t_data *data)
 {
 	while (1)
 	{
-		if (get_bool(&data->access_mutex, &data->threads_ready))
+		if (get_bool(&data->access_mutex, &data->threads_ready) == TRUE)
 			break ;
 	}
 }
@@ -60,7 +60,8 @@ void	*death_check(void *ph_data)
 	data = (t_data *)ph_data;
 	while (1)
 	{
-		if (all_ph_active(&data->access_mutex, &data->active_philo, data->num_philo))
+		if (all_ph_active(&data->access_mutex, &data->active_philo \
+			, data->num_philo))
 			break ;
 	}
 	while (get_bool(&data->access_mutex, &data->end_time) == FALSE)

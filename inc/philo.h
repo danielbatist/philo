@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 20:34:47 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/11 20:29:38 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:18:53 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define TRUE 1
 # define FALSE 0
 
-# define RESET		"\033[0m"
+# define RES		"\033[0m"
 # define RED		"\033[0;31m"
-# define GREEN		"\033[0;32m"
-# define WHITE		"\033[0;37m"
+# define GRE		"\033[0;32m"
+# define WHI		"\033[0;37m"
 
 typedef struct s_data	t_data;
 typedef pthread_mutex_t	t_mtx;
@@ -41,7 +41,7 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	int			philo_id;
+	int			ph_id;
 	int			max_meals; //bool
 	long		meals_counter;
 	long		last_meal;
@@ -92,7 +92,8 @@ typedef enum e_flag
 	DESTROY,
 }				t_flag;
 
-void	handle_thread(pthread_t *thread_info, void *(*f)(void *), void *t_data, t_flag flag);
+void	handle_thread(pthread_t *thread_info, void *(*f)(void *) \
+		, void *t_data, t_flag flag);
 void	handle_mutex(t_mtx *mtx, t_flag flag);
 void	waiting_thread(t_data *data);
 void	thread_active(t_mtx *mutex, long *value);

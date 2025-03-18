@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:15:38 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/11 19:46:51 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/18 09:53:13 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static void	thinking(t_philo *philo, int pre_sim)
 	thinking_time = (eating_time * 2) - sleeping_time;
 	if (thinking_time < 0)
 		thinking_time = 0;
-	ft_usleep(thinking_time * 0.3, philo->data); 
+	ft_usleep(thinking_time * 0.3, philo->data);
 }
 
 static void	synch_dinner(t_philo *philo)
 {
-	if (philo->philo_id % 2 == 0)
+	if (philo->ph_id % 2 == 0)
 		ft_usleep(30, philo->data);
 	else
 		thinking(philo, TRUE);
@@ -48,7 +48,8 @@ static void	eating(t_philo *philo)
 	philo->meals_counter++;
 	print_status(EATING, philo);
 	ft_usleep(philo->data->time_to_eat, philo->data);
-	if (philo->data->total_meals > 0 && philo->meals_counter == philo->data->total_meals)
+	if (philo->data->total_meals > 0 && \
+		philo->meals_counter == philo->data->total_meals)
 		set_value(&philo->philo_mtx, &philo->max_meals, TRUE);
 	handle_mutex(&philo->left_fork->fork_mutex, UNLOCK);
 	handle_mutex(&philo->right_fork->fork_mutex, UNLOCK);
@@ -63,7 +64,7 @@ static void	*philo_dinner(void *ph)
 	set_long(&philo->philo_mtx, &philo->last_meal, gettime());
 	thread_active(&philo->data->access_mutex, &philo->data->active_philo);
 	synch_dinner(philo);
-	while (get_bool(&philo->data->access_mutex, &philo->data->end_time) == FALSE)
+	while (!get_bool(&philo->data->access_mutex, &philo->data->end_time))
 	{
 		if (get_bool(&philo->philo_mtx, &philo->max_meals) == TRUE)
 			break ;
@@ -81,12 +82,14 @@ void	simulation_start(t_data *data)
 
 	i = 0;
 	if (data->num_philo == 1)
-		handle_thread(&data->philo_arr[0].philo_thread, single_philo, &data->philo_arr[0], CREATE);
+		handle_thread(&data->philo_arr[0].philo_thread \
+		, single_philo, &data->philo_arr[0], CREATE);
 	else
 	{
 		while (i < data->num_philo)
 		{
-			handle_thread(&data->philo_arr[i].philo_thread, philo_dinner, &data->philo_arr[i], CREATE);
+			handle_thread(&data->philo_arr[i].philo_thread \
+			, philo_dinner, &data->philo_arr[i], CREATE);
 			i++;
 		}
 	}

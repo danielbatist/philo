@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:31:50 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/11 20:17:40 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:08:50 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ void	*single_philo(void *ph)
 	set_long(&philo->philo_mtx, &philo->last_meal, gettime());
 	thread_active(&philo->data->access_mutex, &philo->data->active_philo);
 	print_status(TAKES_LEFT_FORK, philo);
-	while (get_bool(&philo->data->access_mutex, &philo->data->end_time) == FALSE)
+	while (get_bool(&philo->data->access_mutex \
+		, &philo->data->end_time) == FALSE)
 		ft_usleep(200, philo->data);
 	return (NULL);
 }
 
-//area critica em caso de problemas no funcionamento rever a logica.
-static void	take_forks(t_philo *philo, t_fork *forks_arr, int philo_index) 
+static void	take_forks(t_philo *philo, t_fork *forks_arr, int philo_index)
 {
 	int	philo_total;
 
 	philo_total = philo->data->num_philo;
-	if (philo->philo_id % 2 == 0)
+	if (philo->ph_id % 2 == 0)
 	{
 		philo->left_fork = &forks_arr[philo_index];
 		philo->right_fork = &forks_arr[(philo_index + 1) % philo_total];
@@ -40,7 +40,7 @@ static void	take_forks(t_philo *philo, t_fork *forks_arr, int philo_index)
 	else
 	{
 		philo->right_fork = &forks_arr[(philo_index + 1) % philo_total];
-		philo->left_fork = &forks_arr[philo_index];	
+		philo->left_fork = &forks_arr[philo_index];
 	}
 }
 
@@ -53,7 +53,7 @@ static void	philo_init(t_data *data)
 	while (i < data->num_philo)
 	{
 		philo = data->philo_arr + i;
-		philo->philo_id = i + 1;
+		philo->ph_id = i + 1;
 		philo->max_meals = 0;
 		philo->meals_counter = 0;
 		handle_mutex(&philo->philo_mtx, INIT);
@@ -71,9 +71,11 @@ void	data_init(t_data *data)
 	data->end_time = 0;
 	data->threads_ready = 0;
 	data->active_philo = 0;
-	if (!(data->philo_arr = ft_malloc(data->num_philo * sizeof(t_philo), data)))
+	data->philo_arr = ft_malloc(data->num_philo * sizeof(t_philo), data);
+	if (!data->philo_arr)
 		return ;
-	if (!(data->forks_arr = ft_malloc(data->num_philo * sizeof(t_fork), data)))
+	data->forks_arr = ft_malloc(data->num_philo * sizeof(t_fork), data);
+	if (!data->forks_arr)
 	{
 		free(data->philo_arr);
 		return ;

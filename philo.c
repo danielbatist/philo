@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:43:03 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/11 20:26:04 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/13 23:47:18 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,7 @@ int	main(int argc, char **argv)
 			free_things(&data);
 		}
 		else
-		{
-			printf("Error:  Initialization error \
-			,please try again, check error_flag.\n");
 			return (1);
-		}
 	}
 	else
 	{

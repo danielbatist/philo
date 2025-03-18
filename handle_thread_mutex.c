@@ -6,7 +6,7 @@
 /*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:46:11 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/08 09:21:53 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/17 21:21:47 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,16 @@ static void	thread_error(int status, t_flag flag)
 
 static void	mutex_error(int status, t_flag flag)
 {
-	if (status != 0 && (flag == INIT || flag == LOCK || flag == UNLOCK || flag == DESTROY))
+	if (status != 0 && (flag == INIT || flag == LOCK \
+		|| flag == UNLOCK || flag == DESTROY))
 	{
 		ft_printf("Mutex error\n");
 		return ;
 	}
 }
 
-void	handle_thread(pthread_t *thread_info, void *(*f)(void *), void *t_data, t_flag flag)
+void	handle_thread(pthread_t *thread_info, void *(*f)(void *) \
+		, void *t_data, t_flag flag)
 {
 	if (flag == CREATE)
 		thread_error(pthread_create(thread_info, NULL, f, t_data), flag);
