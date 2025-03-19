@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:43:03 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/13 23:47:18 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:17:09 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 int	main(int argc, char **argv)
 {
@@ -31,7 +31,7 @@ int	main(int argc, char **argv)
 	}
 	else
 	{
-		ft_printf("Invalid input\n \
+		printf("Invalid input\n \
 				  Usage: <num_philo> <time_to_die> <time_to_eat> <time_to_sleep>[number_of_times_each_philosopher_must_eat]\n \
 				  For example: ./philo 5 800 200 200 7\n");
 		return (1);

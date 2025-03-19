@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 20:34:47 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/17 21:18:53 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:57:56 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "../printf/ft_printf.h"
 # include <unistd.h>
 # include <pthread.h>
 # include <stdlib.h>
@@ -42,7 +41,7 @@ typedef struct s_fork
 typedef struct s_philo
 {
 	int			ph_id;
-	int			max_meals; //bool
+	int			max_meals;
 	long		meals_counter;
 	long		last_meal;
 	pthread_t	philo_thread;
@@ -61,9 +60,9 @@ typedef struct s_data
 	long			total_meals;
 	long			start_time;
 	long			active_philo;
-	int				end_time; // bool 
-	int				threads_ready; // bool
-	int				error_flag; // bool
+	int				end_time;
+	int				threads_ready;
+	int				error_flag;
 	pthread_t		thread_death;
 	t_fork			*forks_arr;
 	t_philo			*philo_arr;

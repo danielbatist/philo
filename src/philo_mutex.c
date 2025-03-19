@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo_mutex.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:22:35 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/17 21:11:37 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:59:41 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 void	set_value(t_mtx *mutex, int *value, int flag)
 {

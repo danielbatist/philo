@@ -3,21 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   monitoring.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 16:08:40 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/17 23:02:32 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:59:22 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 void	waiting_thread(t_data *data)
 {
 	while (1)
 	{
-		if (get_bool(&data->access_mutex, &data->threads_ready) == TRUE)
+		if (get_bool(&data->access_mutex, &data->threads_ready))
 			break ;
+		usleep(1);
 	}
 }
 
@@ -58,12 +59,9 @@ void	*death_check(void *ph_data)
 	t_data	*data;
 
 	data = (t_data *)ph_data;
-	while (1)
-	{
-		if (all_ph_active(&data->access_mutex, &data->active_philo \
-			, data->num_philo))
-			break ;
-	}
+	while (!all_ph_active(&data->access_mutex, &data->active_philo \
+		, data->num_philo))
+		usleep(1);
 	while (get_bool(&data->access_mutex, &data->end_time) == FALSE)
 	{
 		i = 0;
@@ -76,6 +74,7 @@ void	*death_check(void *ph_data)
 			}
 			i++;
 		}
+		usleep(1);
 	}
 	return (NULL);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo_simulation.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/08 14:15:38 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/18 09:53:13 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:59:46 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 static void	thinking(t_philo *philo, int pre_sim)
 {
@@ -48,8 +48,8 @@ static void	eating(t_philo *philo)
 	philo->meals_counter++;
 	print_status(EATING, philo);
 	ft_usleep(philo->data->time_to_eat, philo->data);
-	if (philo->data->total_meals > 0 && \
-		philo->meals_counter == philo->data->total_meals)
+	if (philo->data->total_meals > 0 \
+	&& philo->meals_counter == philo->data->total_meals)
 		set_value(&philo->philo_mtx, &philo->max_meals, TRUE);
 	handle_mutex(&philo->left_fork->fork_mutex, UNLOCK);
 	handle_mutex(&philo->right_fork->fork_mutex, UNLOCK);
@@ -72,6 +72,7 @@ static void	*philo_dinner(void *ph)
 		print_status(SLEEPING, philo);
 		ft_usleep(philo->data->time_to_sleep, philo->data);
 		thinking(philo, FALSE);
+		usleep(1);
 	}
 	return (NULL);
 }

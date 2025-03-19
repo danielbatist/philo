@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 18:43:15 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/17 23:04:36 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:59:52 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 void	print_status(t_status status, t_philo *ph)
 {
@@ -25,9 +25,9 @@ void	print_status(t_status status, t_philo *ph)
 		handle_mutex(&ph->data->print_mutex, LOCK);
 		end_time = get_bool(&ph->data->access_mutex, &ph->data->end_time);
 		if (status == TAKES_LEFT_FORK && !end_time)
-			printf(WHI"%-6ld"RES"%d has taken a left fork\n", elap, ph->ph_id);
+			printf(WHI"%-6ld"RES" %d has taken a left fork\n", elap, ph->ph_id);
 		else if (status == TAKES_RIGHT_FORK && !end_time)
-			printf(WHI"%-6ld"RES"%d has taken a right fork\n", elap, ph->ph_id);
+			printf(WHI"%-6ld"RES" %d has taken a right fork\n", elap, ph->ph_id);
 		else if (status == EATING && !end_time)
 			printf(GRE"%-6ld"RES" %d is eating\n", elap, ph->ph_id);
 		else if (status == SLEEPING && !end_time)
@@ -46,7 +46,7 @@ long	gettime(void)
 
 	if (gettimeofday(&current, NULL) != 0)
 	{
-		ft_printf("Error: gettimeofday failure.\n");
+		printf("Error: gettimeofday failure.\n");
 		return (1);
 	}
 	return (current.tv_sec * 1000 + current.tv_usec / 1000);
@@ -70,8 +70,11 @@ void	ft_usleep(long sleep_time, t_data *data)
 		else
 		{
 			while (gettime() - start_time < sleep_time)
-				;
+			{
+				usleep(1);
+			}
 		}
+		usleep(1);
 	}
 }
 
@@ -98,6 +101,7 @@ void	free_things(t_data *data)
 	{
 		philo = data->philo_arr + i;
 		handle_mutex(&philo->philo_mtx, DESTROY);
+		handle_mutex(&data->forks_arr[i].fork_mutex, DESTROY);
 		i++;
 	}
 	handle_mutex(&data->print_mutex, DESTROY);

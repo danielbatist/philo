@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   philo_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/07 17:30:54 by dbatista          #+#    #+#             */
+/*   Updated: 2025/03/19 15:59:36 by dbatista         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_input.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:30:54 by dbatista          #+#    #+#             */
@@ -10,7 +22,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 static long	ft_atol(const char *num)
 {
@@ -65,15 +77,15 @@ void	convert_input(t_data *data, char **argv)
 		data->total_meals = -1;
 	if (!data->error_flag)
 	{
-		if (data->num_philo > 200)
+		if (data->num_philo <= 0)
 			data->error_flag = 1;
-		if (data->time_to_die < 60 || data->time_to_eat < 60 \
-			|| data->time_to_sleep < 60)
+		if (data->num_philo > 200 || data->time_to_die < 60 \
+		|| data->time_to_eat < 60 || data->time_to_sleep < 60)
 			data->error_flag = 1;
 	}
 	if (data->error_flag)
 	{
 		printf("Input error: invalid arguments, try again.\n");
-		printf ("Ex: <./philo 5 800 200 200> or <./philo 5 800 200 200 7>\n ");
+		printf ("Ex: <./philo 5 800 200 200> or <./philo 5 800 200 200 7> ");
 	}
 }

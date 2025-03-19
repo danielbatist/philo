@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   handle_thread_mutex.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 20:46:11 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/17 21:21:47 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:58:53 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 static void	thread_error(int status, t_flag flag)
 {
-	if (status != 0 && (flag == CREATE || flag == JOIN || flag == DETACH))
+	if (status != 0 && (flag == CREATE || flag == JOIN))
 	{
-		ft_printf("Thread error\n");
+		printf("Thread error\n");
 		return ;
 	}
 }
 
 static void	mutex_error(int status, t_flag flag)
 {
-	if (status != 0 && (flag == INIT || flag == LOCK \
-		|| flag == UNLOCK || flag == DESTROY))
+	if (status != 0 && (flag == INIT || flag == LOCK || \
+		flag == UNLOCK || flag == DESTROY))
 	{
-		ft_printf("Mutex error\n");
+		printf("Mutex error\n");
 		return ;
 	}
 }
@@ -38,11 +38,9 @@ void	handle_thread(pthread_t *thread_info, void *(*f)(void *) \
 		thread_error(pthread_create(thread_info, NULL, f, t_data), flag);
 	else if (flag == JOIN)
 		thread_error(pthread_join(*thread_info, NULL), flag);
-	else if (flag == DETACH)
-		thread_error(pthread_detach(*thread_info), flag);
 	else
 	{
-		ft_printf("Flag options: CREATE, JOIN and DETACH");
+		printf("Flag options: CREATE and JOIN");
 		return ;
 	}
 }
@@ -56,10 +54,10 @@ void	handle_mutex(t_mtx *mtx, t_flag flag)
 	else if (flag == UNLOCK)
 		mutex_error(pthread_mutex_unlock(mtx), flag);
 	else if (flag == DESTROY)
-		mutex_error(pthread_mutex_unlock(mtx), flag);
+		mutex_error(pthread_mutex_destroy(mtx), flag);
 	else
 	{
-		ft_printf("Flags option: LOCK, UNLOCK, INIT, DESTROY");
+		printf("Flags option: LOCK, UNLOCK, INIT, DESTROY");
 		return ;
 	}
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbatista <dbatista@student.42.rio>         +#+  +:+       +#+        */
+/*   By: dbatista <dbatista@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 17:31:50 by dbatista          #+#    #+#             */
-/*   Updated: 2025/03/17 21:08:50 by dbatista         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:59:28 by dbatista         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../inc/philo.h"
 
 void	*single_philo(void *ph)
 {
@@ -21,8 +21,7 @@ void	*single_philo(void *ph)
 	set_long(&philo->philo_mtx, &philo->last_meal, gettime());
 	thread_active(&philo->data->access_mutex, &philo->data->active_philo);
 	print_status(TAKES_LEFT_FORK, philo);
-	while (get_bool(&philo->data->access_mutex \
-		, &philo->data->end_time) == FALSE)
+	while (!get_bool(&philo->data->access_mutex, &philo->data->end_time))
 		ft_usleep(200, philo->data);
 	return (NULL);
 }
@@ -39,8 +38,8 @@ static void	take_forks(t_philo *philo, t_fork *forks_arr, int philo_index)
 	}
 	else
 	{
-		philo->right_fork = &forks_arr[(philo_index + 1) % philo_total];
-		philo->left_fork = &forks_arr[philo_index];
+		philo->left_fork = &forks_arr[(philo_index + 1) % philo_total];
+		philo->right_fork = &forks_arr[philo_index];
 	}
 }
 

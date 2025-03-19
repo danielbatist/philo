@@ -1,8 +1,6 @@
 CC = cc 
 
-CFLAGS = -Wall -Wextra -Werror -Iinc -g
-
-PRINT = printf
+CFLAGS = -Wall -Wextra -Werror -g -pthread
 
 NAME = philo
 
@@ -15,8 +13,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@clear
-	@make -s -C $(PRINT)
-	@$(CC) $(CFLAGS) $(OBJ) -L$(PRINT) -lftprintf -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 	@echo -n "  Compiling"
 	@bash ./loading.sh
 	@clear
@@ -26,7 +23,6 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -c $< -o ${<:.c=.o}
 
 clean: 
-	@make clean -s -C $(PRINT)
 	@rm -f $(OBJ)
 
 fclean: clean
